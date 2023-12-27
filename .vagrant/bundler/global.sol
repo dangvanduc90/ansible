@@ -1,0 +1,1 @@
+{"dependencies":[["backticks",["~> 1.0.0"]],["docker",["= 0.4.0"]]],"checksum":"6527f39c0ef80fa6631e923463a5fe21f64dd79620f69f52e5697fb681f17402","vagrant_version":"2.4.0"}
