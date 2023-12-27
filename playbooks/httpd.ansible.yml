@@ -1,0 +1,41 @@
+---
+- name: Test
+  hosts: rocky8
+  become: true
+  vars:
+    my_name: 'PhamKhanh123'
+    package: httpd
+  tasks:
+    - name: Install httpd
+      ansible.builtin.yum:
+        name: "{{ package }}"
+        state: present
+
+    - name: Check if HTTPD is installed
+      register: http_installed
+      ansible.builtin.command: httpd -v
+      ignore_errors: true
+      changed_when: false
+
+    - name: This task is only executed if HTTPD is installed
+      ansible.builtin.debug:
+        var: http_installed
+      when: http_installed is success
+
+    - name: This task is only executed if HTTPD is NOT installed
+      ansible.builtin.debug:
+        msg: HTTPD is NOT installed
+      when: http_installed is failed
+
+    - name: Template configuration file
+      ansible.builtin.template:
+        src: index.html
+        dest: /var/www/html/index.html
+        mode: '0644'
+      notify:
+        - restart httpd
+  handlers:
+    - name: Restart httpd
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
