@@ -1,0 +1,12 @@
+---
+# - name: Import dependencies
+#   ansible.builtin.import_tasks: install_dependencies.yml
+
+- name: Import php
+  ansible.builtin.import_tasks: install_php.yml
+
+# - name: Remove php fpm
+#   ansible.builtin.import_tasks: remove_php_fpm.yml
+
+- name: Import php fpm
+  ansible.builtin.import_tasks: install_php_fpm.yml

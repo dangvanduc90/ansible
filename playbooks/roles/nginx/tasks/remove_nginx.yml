@@ -1,5 +1,5 @@
 ---
-  - name: Remove nginx
-    ansible.builtin.yum:
-      name: nginx-{{ nginx_version }}
-      state: absent
+- name: remove_nginx | Remove nginx
+  ansible.builtin.yum:
+    name: nginx-{{ nginx_version }}
+    state: absent

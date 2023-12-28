@@ -1,0 +1,7 @@
+---
+- name: install_php | Install php
+  ansible.builtin.yum:
+    name: php
+    state: present
+  notify:
+    - Enable php
