@@ -1,0 +1,58 @@
+---
+- name: Wordpress
+  hosts: rocky8
+  become: true
+  tasks:
+    - name: Install LAMP
+      ansible.builtin.yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - httpd
+        - php
+        - php-fpm
+        - mariadb
+        - mariadb-server
+        - php-mysqlnd
+    - name: Ensure all server enabled and started
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      with_items:
+        - mariadb
+        - httpd
+    - name: Ensure http https firewall
+      ansible.posix.firewalld:
+        service: "{{ item }}"
+        state: enabled
+        permanent: true
+        immediate: true
+      become: true
+      with_items:
+        - http
+        - https
+    - name: Download Wordpress
+      ansible.builtin.get_url:
+        url: http://wordpress.org/wordpress-5.3.2.tar.gz
+        dest: /root
+        mode: 644
+    - name: Create dir
+      ansible.builtin.command: "mkdir -p /var/www/html/"
+      changed_when: false
+    - name: Extract Wordpress
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /root/wordpress-5.3.2.tar.gz
+        dest: /root
+        extra_opts:
+          - --no-same-owner # <- Does not transfer the owner and group for the file.
+    - name: Copy Wordpress
+      ansible.builtin.command: "cp -Rf /root/wordpress/. /var/www/html"
+      changed_when: false
+    - name: Set permission
+      ansible.builtin.command: chown -R apache:apache /var/www/html/
+      changed_when: false
+    - name: Create folder upload
+      ansible.builtin.command: mkdir -p /var/www/html/wp-content/uploads
+      changed_when: false
