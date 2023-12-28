@@ -1,0 +1,5 @@
+---
+- name: install_dependencies | Add epel-release repo
+  ansible.builtin.yum:
+    name: epel-release
+    state: present

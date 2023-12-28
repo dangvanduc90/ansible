@@ -1,0 +1,9 @@
+---
+- name: Import dependencies
+  ansible.builtin.import_tasks: install_dependencies.yml
+
+- name: Import nginx
+  ansible.builtin.import_tasks: install_nginx.yml
+
+- name: Open port
+  ansible.builtin.import_tasks: openport.yml

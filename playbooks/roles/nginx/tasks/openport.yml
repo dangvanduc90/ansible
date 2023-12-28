@@ -1,0 +1,9 @@
+---
+- name: openport | Ensure http https firewall
+  ansible.posix.firewalld:
+    state: enabled
+    permanent: true
+    immediate: true
+    zone: public
+    port: 80/tcp
+  become: true
