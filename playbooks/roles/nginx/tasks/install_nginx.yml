@@ -1,8 +1,7 @@
 ---
 - name: install_nginx | Install nginx
   ansible.builtin.yum:
-    name: nginx
+    name: nginx-{{ nginx_version }}
     state: present
   notify:
-    - Start nginx
-    - Ensure http https firewall
+    - Enable nginx
