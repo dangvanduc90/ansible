@@ -1,0 +1,6 @@
+---
+- name: add_index_page | Add Index php
+  ansible.builtin.template:
+    src: index.php
+    dest: /usr/share/nginx/html/index.php
+    mode: '0644'

@@ -8,5 +8,8 @@
 - name: Import php dependencies
   ansible.builtin.import_tasks: install_dependencies.yml
 
-- name: Import composer
-  ansible.builtin.import_tasks: install_composer.yml
+# - name: Import composer
+#   ansible.builtin.import_tasks: install_composer.yml
+
+- name: Add index page
+  ansible.builtin.import_tasks: add_index_page.yml

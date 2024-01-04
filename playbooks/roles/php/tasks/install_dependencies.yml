@@ -1,9 +1,17 @@
 ---
 - name: install_dependencies | Add php-extension
   ansible.builtin.yum:
+    enablerepo:
+      - remi-{{ php_version_shortcut }}, epel
     name:
       - php-json
       - gcc
       - php-pear
       - php-devel
+      - php-mbstring
+      - php-xml
+      - php-gd
     state: present
+- name: install_dependencies | Httpd Can Connect db
+  ansible.builtin.command: sudo setsebool -P httpd_can_network_connect_db 1
+  changed_when: false
