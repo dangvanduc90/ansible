@@ -1,7 +1,7 @@
 ---
 - name: install_php | Install php
   ansible.builtin.yum:
-    name: php
+    name: php-{{ php_version }}
     state: present
   notify:
-    - Enable php
+    - Enable php fpm service

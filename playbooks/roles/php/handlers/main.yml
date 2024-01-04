@@ -1,5 +1,5 @@
 ---
-- name: Enable php fpm
+- name: Enable php fpm service
   ansible.builtin.service:
     name: php-fpm
     state: started

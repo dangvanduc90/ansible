@@ -1,0 +1,5 @@
+---
+- name: remove_php | Remove php
+  ansible.builtin.yum:
+    name: php
+    state: absent

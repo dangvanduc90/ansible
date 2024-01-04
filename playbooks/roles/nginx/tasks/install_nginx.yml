@@ -4,4 +4,4 @@
     name: nginx-{{ nginx_version }}
     state: present
   notify:
-    - Enable nginx
+    - Enable nginx service

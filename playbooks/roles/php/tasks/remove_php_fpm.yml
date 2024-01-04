@@ -1,5 +1,0 @@
----
-- name: remove_php_fpm | Remove php fpm
-  ansible.builtin.yum:
-    name: php-fpm
-    state: absent

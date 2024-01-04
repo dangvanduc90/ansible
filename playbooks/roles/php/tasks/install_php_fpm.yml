@@ -1,7 +1,0 @@
----
-- name: install_php_fpm | Install php-fpm
-  ansible.builtin.yum:
-    name: php-fpm
-    state: present
-  notify:
-    - Enable php fpm
