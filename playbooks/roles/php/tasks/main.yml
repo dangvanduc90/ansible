@@ -2,5 +2,11 @@
 # - name: Remove php fpm
 #   ansible.builtin.import_tasks: remove_php.yml
 
-- name: Import php
-  ansible.builtin.import_tasks: install_php.yml
+# - name: Import php
+#   ansible.builtin.import_tasks: install_php.yml
+
+# - name: Import php dependencies
+#   ansible.builtin.import_tasks: install_dependencies.yml
+
+- name: Import composer
+  ansible.builtin.import_tasks: install_composer.yml

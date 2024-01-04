@@ -1,0 +1,5 @@
+---
+- name: install_dependencies | Add php-json
+  ansible.builtin.yum:
+    name: php-json
+    state: present

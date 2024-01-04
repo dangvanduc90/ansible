@@ -5,5 +5,5 @@
   become_user: root
 
   roles:
-    - nginx
+    # - nginx
     - php

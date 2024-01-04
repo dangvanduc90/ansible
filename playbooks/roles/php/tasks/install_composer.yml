@@ -1,0 +1,19 @@
+---
+- name: install_composer | Install composer
+  ansible.builtin.get_url:
+    url: https://getcomposer.org/installer
+    mode: 644
+    dest: ./composer-setup.php
+- name: install_composer | Run composer
+  ansible.builtin.command:
+    cmd: php composer-setup.php --quiet
+  changed_when: false
+- name: install_composer | Add composer to Global path
+  ansible.builtin.copy:
+    dest: /usr/local/bin/composer
+    group: root
+    mode: '0755'
+    owner: root
+    src: composer.phar
+    remote_src: true
+  become: true
