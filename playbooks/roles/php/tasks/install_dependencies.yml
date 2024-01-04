@@ -1,5 +1,9 @@
 ---
-- name: install_dependencies | Add php-json
+- name: install_dependencies | Add php-extension
   ansible.builtin.yum:
-    name: php-json
+    name:
+      - php-json
+      - gcc
+      - php-pear
+      - php-devel
     state: present
