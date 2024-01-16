@@ -1,0 +1,37 @@
+---
+- name: Add user to rocky group server
+  hosts: rocky8
+  become: true
+  become_user: root
+
+  vars:
+    list_user:
+      vietnh: authorized_keys_vietnh
+      ducdv: authorized_keys_ducdv
+      toanmv: authorized_keys_toanmv
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: "{{ item.key }}"
+      with_dict: "{{ list_user }}"
+
+    - name: Make ssh dir
+      ansible.builtin.file:
+        path: "/home/{{ item.key }}/.ssh"
+        state: directory
+        owner: "{{ item.key }}"
+        mode: "0700"
+      with_dict: "{{ list_user }}"
+
+    - name: Add key to user
+      ansible.builtin.copy:
+        src: "{{ item.value }}"
+        dest: "/home/{{ item.key }}/.ssh/authorized_keys"
+        remote_src: false
+        mode: "0600"
+      with_dict: "{{ list_user }}"
+
+    - name: Restart sshd
+      ansible.builtin.service:
+        name: sshd
+        state: restarted

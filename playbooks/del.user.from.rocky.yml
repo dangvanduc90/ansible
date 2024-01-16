@@ -1,0 +1,16 @@
+---
+- name: Add user to rocky group server
+  hosts: rocky8
+  become: true
+  become_user: root
+
+  vars:
+    list_user:
+      vietnh: authorized_keys_vietnh
+      ducdv: authorized_keys_ducdv
+      toanmv: authorized_keys_toanmv
+  tasks:
+    - name: Create user
+      ansible.builtin.command: userdel -r {{ item.key }}
+      with_dict: "{{ list_user }}"
+      changed_when: false
