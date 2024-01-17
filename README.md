@@ -17,3 +17,7 @@ copy noi dung file vagrant-ssh vaof ~/.ssh/config
 
 ### Run it
 `ansible-playbook playbooks/lemp_stack.ansible.yml`
+
+
+### Ansible vault
+`ansible-playbook playbooks/galaxy.mysql.yml --vault-password-file=playbooks/ansible-vault.pass`

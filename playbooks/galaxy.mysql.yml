@@ -4,10 +4,11 @@
   become: true
   become_user: root
   gather_facts: false
+  vars_files:
+    - vault.yml
 
   collections:
     - jabdr.sql_query
-
   tasks:
     # - name: Install dependencies
     #   ansible.builtin.dnf:
@@ -18,34 +19,36 @@
     #   changed_when: false
     # - name: Try to create database as root/nopassword first. If not allowed, pass the credentials
     #   community.mysql.mysql_db:
-    #     login_user: ducdv_dev
-    #     login_password: xxx
+    #     login_user: "{{ login_user }}"
+    #     login_password: "{{ login_password }}"
     #     name: 9prints_store_fog
     #     state: present
-    #     login_host: localhost
+    #     login_host: "{{ login_host }}"
     # - name: Simple select query to acme db
     #   community.mysql.mysql_query:
-    #     login_user: ducdv_dev
-    #     login_password: xxx
-    #     login_host: localhost
+    #     login_user: "{{ login_user }}"
+    #     login_password: "{{ login_password }}"
+    #     login_host: "{{ login_host }}"
     #     login_db: 9prints_store_fog
     #     query: DELETE FROM db_test
 
-    # Copy database dump file to remote host
     - name: Copy database dump file
       ansible.builtin.copy:
         src: testdb.sql
         dest: /tmp
         mode: '0644'
 
-    # Import of sql script with encoding option
     - name: >
         Import dump.sql,
         similar to mysql -u <username> -p <password> < dump.sql
       community.mysql.mysql_db:
-        login_user: ducdv_dev
-        login_password: xxx
+        login_user: "{{ login_user }}"
+        login_password: "{{ login_password }}"
         name: 9prints_store_fog
-        login_host: localhost
+        login_host: "{{ login_host }}"
         state: import
         target: /tmp/testdb.sql
+
+    - name: Debug my vault
+      ansible.builtin.debug:
+        msg: "my login_host is {{ login_host }}"
