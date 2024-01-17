@@ -1,0 +1,1 @@
+INSERT INTO `db_test` (`id`, `filename`, `status`, `type`, `flag`) VALUES (NULL, 'ducbi', 1, 1, 1)
