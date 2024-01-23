@@ -21,3 +21,6 @@ copy noi dung file vagrant-ssh vaof ~/.ssh/config
 
 ### Ansible vault
 `ansible-playbook playbooks/galaxy.mysql.yml --vault-password-file=playbooks/ansible-vault.pass`
+
+### Registering variables
+`ansible-playbook playbooks/registering.variables.yml -v`

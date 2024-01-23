@@ -1,0 +1,41 @@
+---
+- name: Registering variables
+  hosts: rocky8
+  vars:
+    test: 5
+
+  tasks:
+    - name: Run a shell command and register its output as a variable foo_result
+      ansible.builtin.command: echo {{ test }}
+      register: foo_result
+      ignore_errors: true
+      changed_when: true
+
+    - name: Run a shell command using output of the previous task foo_result
+      ansible.builtin.command: pwd
+      when: foo_result.stdout == "5"
+      changed_when: true
+
+
+    - name: Run a shell command and register its output as a variable foo_result1
+      ansible.builtin.command: echo {{ ansible_facts['nodename'] }} # or {{ ansible_nodename }}
+      register: foo_result1
+      ignore_errors: true
+      changed_when: true
+
+    - name: Run a shell command using output of the previous task foo_result1
+      ansible.builtin.command: pwd
+      when: foo_result1.stdout == "worker01.9prints.internal"
+      changed_when: true
+
+
+    - name: Run a shell command and register its output as a variable foo_result2
+      ansible.builtin.command: whoami
+      register: foo_result2
+      ignore_errors: true
+      changed_when: true
+
+    - name: Run a shell command using output of the previous task foo_result2
+      ansible.builtin.command: pwd
+      when: foo_result2.stdout == "vagrant"
+      changed_when: true
