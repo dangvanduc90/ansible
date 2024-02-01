@@ -1,0 +1,12 @@
+namespace: "nginx"
+name: "nginx_role"
+version: "1.0.12"
+readme: "README.md"
+description: "Personal ansible project"
+authors:
+    - "dangvanduc90 <dangvanduc0@gmail.com>"
+license:
+    - "MIT"
+tags:
+    - demo
+repository: "https://github.com/dangvanduc90/ansible"
